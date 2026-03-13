@@ -1,29 +1,64 @@
 package model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class HotelStay extends TourService {
+
     int stars;
     int nights;
     RoomType roomType;
+
     public void setStars(int stars) {
         this.stars = stars;
     }
+
+    public int getStars() {
+        return stars;
+    }
+
+    public int getNights() {
+        return nights;
+    }
+
+    public void setNights(int nights) {
+        this.nights = nights;
+    }
+
+    public RoomType getRoomType() {
+        return roomType;
+    }
+
     public void nights(int nights) {
         this.nights = nights;
     }
-    public void setRoomType(RoomType room){
+
+    public void setRoomType(RoomType room) {
         this.roomType = room;
     }
+
     @Override
     public String toString() {
-        return "User{Сколько звезд=\"" + stars + "\", Сколько ночей=\"" +nights + "\", Тип комнаты=\"" + (roomType != null ? roomType.name() : "не указан") + "\"}";
+        return "User{Сколько звезд=\"" + stars + "\", Сколько ночей=\"" + nights + "\", Тип комнаты=\"" + (roomType != null ? roomType.name() : "null") + "\", X=\"" + getX() + "\", Name=\"" + getName() + "\", From=\"" + getFrom() + "\", To=\"" + getTo() + "\", Price=\"" + getPrice() + "\"}";
+    }
+    public HotelStay(Integer x, String name, BigDecimal price, LocalDate from, LocalDate to, int stars, int nights, RoomType roomType) {
+        super(x, name, price, from, to);
+        this.stars = stars;
+        this.nights = nights;
+        this.roomType = roomType;
+    }
+
+    public HotelStay() {
+        super();
+        this.stars = 0;
+        this.nights = 0;
+        this.roomType = null;
     }
     @Override
     public BigDecimal calculateTotalPrice(int participants) {
         var newPr = getPrice().multiply(BigDecimal.valueOf(participants));
         double hadN;
-        double starsMulti = 1.0+((double) stars)/10;
+        double starsMulti = 1.0 + ((double) stars) / 10;
         hadN = switch (nights) {
             case 0 -> 1.0;
             case 1 -> 1.2;
