@@ -1,8 +1,16 @@
-import model.Excursion;
+import exception.TourServiceValidationException;
+import model.Client;
 import model.HotelStay;
+
 public class Main {
-    public static void main(String[] args) {
-        var b = new HotelStay();
-        System.out.print(b.toString());
+  static void main(String[] args) {
+    var b = new HotelStay();
+    System.out.print(b);
+    try {
+      var client = new Client("", "", "", "", 0);
+    } catch (TourServiceValidationException e) {
+      e.getMessage();
     }
+
+  }
 }

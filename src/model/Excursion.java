@@ -4,45 +4,51 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.time.LocalDate;
 
-public class Excursion extends TourService {
-    String where;
-    int day;
+public final class Excursion extends TourService {
+  String where;
+  int day;
 
-    @Override
-    public String toString() {
-        return "User{Где экскурсия=\"" + where + "\", Сколько дней экскурсия=\"" + day + "\", X=\"" + getX() + "\", Name=\"" + getName() + "\", From=\"" + getFrom() + "\", To=\"" + getTo() + "\", Price=\"" + getPrice() + "\"}";
-    }
-    public String getWhere() {
-        return where;
-    }
+  public Excursion(Integer x, String name, BigDecimal price, LocalDate from, LocalDate to,
+                   String where, int day) {
+    super(x, name, price, from, to);
+    this.where = where;
+    this.day = day;
+  }
 
-    public int getDay() {
-        return day;
-    }
+  public Excursion() {
+    super();
+    this.where = null;
+    this.day = 0;
+  }
 
-    public void setWhere(String where) {
-        this.where = where;
-    }
+  @Override
+  public String toString() {
+    return "User{Где экскурсия=\"" + where + "\", Сколько дней экскурсия=\"" + day + "\", X=\"" +
+        getX() + "\", Name=\"" + getName() + "\", From=\"" + getFrom() + "\", To=\"" + getTo() +
+        "\", Price=\"" + getPrice() + "\"}";
+  }
 
-    public void setDay(int day) {
-        this.day = day;
-    }
-    public Excursion(Integer x, String name, BigDecimal price, LocalDate from, LocalDate to, String where, int day) {
-        super(x, name, price, from, to);
-        this.where = where;
-        this.day = day;
-    }
+  public String getWhere() {
+    return where;
+  }
 
-    public Excursion() {
-        super();
-        this.where = null;
-        this.day = 0;
-    }
-    @Override
-    public BigDecimal calculateTotalPrice(int participants) {
-        var discount = getPrice().multiply(BigDecimal.valueOf(participants));
-        return participants > 10
-                ? discount.subtract(discount.divide(BigDecimal.valueOf(10), MathContext.DECIMAL128))
-                : discount;
-    }
+  public void setWhere(String where) {
+    this.where = where;
+  }
+
+  public int getDay() {
+    return day;
+  }
+
+  public void setDay(int day) {
+    this.day = day;
+  }
+
+  @Override
+  public BigDecimal calculateTotalPrice(int participants) {
+    var discount = getPrice().multiply(BigDecimal.valueOf(participants));
+    return participants > 10 ?
+        discount.subtract(discount.divide(BigDecimal.valueOf(10), MathContext.DECIMAL128)) :
+        discount;
+  }
 }
